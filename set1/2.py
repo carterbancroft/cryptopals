@@ -11,11 +11,14 @@ def xor_hex_str(a, b):
 
     return bytes(data)
 
-#str1 = '1c0111001f010100061a024b53535009181c'
-#str2 = '686974207468652062756c6c277320657965'
-str1 = '1c'
-str2 = '68'
-# 746865206b696420646f6e277420706c6179
+str1 = '1c0111001f010100061a024b53535009181c'
+str2 = '686974207468652062756c6c277320657965'
 
 xor = xor_hex_str(str1, str2)
+answer = binascii.hexlify(xor)
+
+expected = b'746865206b696420646f6e277420706c6179'
+assert answer == expected, "Not XOR'd properly."
+
 print(xor)
+print(answer)

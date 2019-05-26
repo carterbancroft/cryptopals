@@ -27,10 +27,6 @@ def score_string(hex_str):
             current_high_string = b_str
             key = chr(i)
 
-    #print(current_high_score)
-    #print(current_high_string)
-    #print(key)
-
     return {
         'score': current_high_score,
         'string': current_high_string
@@ -42,12 +38,11 @@ def do_it():
     answer = {'score': 0, 'string': ''}
     for line in the_file:
         curr = score_string(line.strip())
-        #print(curr)
+
         if (curr['score'] > answer['score']):
             answer = curr
 
-    print('Highest...')
-    print(answer['score'])
-    print(answer['string'])
+    print(f"Highest score: {answer['score']}")
+    print(f"For string: {answer['string']}")
 
 do_it()
