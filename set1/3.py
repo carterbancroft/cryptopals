@@ -2,7 +2,6 @@
 
 from binascii import unhexlify
 
-
 def do_it(hex_str):
     unhexlified = unhexlify(hex_str)
 

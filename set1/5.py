@@ -17,7 +17,6 @@ def repeating_key_xor(key, string):
 
     return hexlify(bytearray(arr))
 
-
 key = 'ICE'
 string = "Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal"
 
