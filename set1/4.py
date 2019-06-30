@@ -29,7 +29,8 @@ def score_string(hex_str):
 
     return {
         'score': current_high_score,
-        'string': current_high_string
+        'string': current_high_string,
+        'key': key
     }
 
 def do_it():
