@@ -5,19 +5,19 @@
 
 # Also, take maybe the top 3 key lengths or top 10
 
-from base64 import b64decode
+import base64
 from binascii import hexlify
 
 """
 Helper to calculate the Hamming distance between the bytes of two equal length
 strings.
 """
-def hamming_distance(string1, string2):
+def hamming_distance(bytes1, bytes2):
     # The strings must be equal length or this will fail.
-    assert len(string1) == len(string2)
+    assert len(bytes1) == len(bytes2)
 
     distance = 0
-    for i in range(len(string1)):
+    for zipped_bytes in zip(bytes1, bytes2):
         """
         XOR the integer representations of the current char in the string.
         This gets us a value whose byte representation is the integer where
@@ -33,7 +33,7 @@ def hamming_distance(string1, string2):
         Where each bit is set in this new value represents a hamming distance
         of one. Now it's just a matter of summing those set bits.
         """
-        x = string1[i] ^ string2[i]
+        x = zipped_bytes[0] ^ zipped_bytes[1]
 
         set_bits = 0
         while (x > 0):
@@ -59,10 +59,6 @@ def hamming_distance(string1, string2):
     return distance
 
 
-#s1 = 'this is a test'
-#s2 = 'wokka wokka!!!'
-
-#assert hamming_distance(s1, s2) == 37
 
 
 """
@@ -209,12 +205,14 @@ def get_key(blocks):
 
     for i in blocks:
         current_high_score = 0
-        current_high_string = ''
         current_key_char = ''
 
         for j in range(127):
-            xord = [j ^ dec for dec in blocks[i]]
-            b = bytes(xord)
+            # Create an array of all the XOR'd
+            x = [j ^ the_bytes for the_bytes in blocks[i]]
+
+            # Convert the array of numbers back into bytes
+            b = bytes(x)
             b_str = str(b, 'utf-8')
 
             score = 0
@@ -224,7 +222,6 @@ def get_key(blocks):
 
             if score > current_high_score:
                 current_high_score = score
-                current_high_string = b_str
                 current_key_char = chr(j)
 
         key += current_key_char
@@ -254,14 +251,17 @@ def decrypt(message_bytes, key):
     return decrypted
 
 
-"""
-"""
+s1 = b'this is a test'
+s2 = b'wokka wokka!!!'
+assert hamming_distance(s1, s2) == 37
+
 the_file = open('./6.txt', 'r')
 data = the_file.read()
 
-# We know the file is base64 encoded  so decode it first, this converts it
+# We know the file is base64 encoded so decode it first, this converts it
 # to raw bytes.
-decoded = b64decode(data)
+decoded = base64.b64decode(data)
+# print(decoded)
 
 # First we need to take a stab at finding the key length.
 keylength = get_keylength(decoded)
