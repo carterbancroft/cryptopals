@@ -1,4 +1,4 @@
-# https://cryptopals.com/sets/1/challenges/6
+# https://cryptopals.com/sets/1/challenges/7
 
 import base64
 from Crypto.Cipher import AES
