@@ -5,7 +5,7 @@ from Crypto.Cipher import AES
 
 def decrypt(key, ciphertext):
     cipher = AES.new(key, AES.MODE_ECB)
-    print(cipher.decrypt(ciphertext))
+    return cipher.decrypt(ciphertext)
 
 the_file = open('./7.txt', 'r')
 data = the_file.read()
@@ -16,4 +16,4 @@ decoded = base64.b64decode(data)
 key = 'YELLOW SUBMARINE'
 
 decrypted = decrypt(key, decoded)
-
+print(decrypted)
