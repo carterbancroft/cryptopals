@@ -27,6 +27,8 @@ def score_ciphertext(ciphertext):
 
     total = 0
     for block in blocks:
+        # Subtract 1 so the string we're checking doesn't get counted.
+        # Otherwise just treat each additional duplicated block as 1 point.
         score = blocks.count(block) - 1
         total += score
 
